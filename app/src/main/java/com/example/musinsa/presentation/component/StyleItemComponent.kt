@@ -5,12 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
-import com.example.musinsa.data.ContentsDto
+import com.example.musinsa.domain.ContentDetail
 
 @Composable
 internal fun StyleItemComponent(
     modifier: Modifier = Modifier,
-    style: ContentsDto.StyleDto,
+    style: ContentDetail.Style,
 ) {
     AsyncImage(
         modifier = modifier.fillMaxSize(),

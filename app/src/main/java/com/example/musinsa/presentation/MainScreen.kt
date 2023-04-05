@@ -27,9 +27,11 @@ import com.airbnb.mvrx.Success
 import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.compose.collectAsState
 import com.airbnb.mvrx.compose.mavericksViewModel
-import com.example.musinsa.data.ContentsDto
-import com.example.musinsa.data.DataDto
-import com.example.musinsa.domain.FooterModel
+import com.example.musinsa.domain.Content
+import com.example.musinsa.domain.ContentDetail
+import com.example.musinsa.domain.ContentType
+import com.example.musinsa.domain.Data
+import com.example.musinsa.domain.FooterType
 import com.example.musinsa.presentation.component.BannerListComponent
 import com.example.musinsa.presentation.component.FooterComponent
 import com.example.musinsa.presentation.component.gridGoods
@@ -56,16 +58,11 @@ fun MainScreen(
             Column {
                 ItemScreen(
                     data = viewState.contentList,
-                    scrollList = viewState.scrollList,
-                    gridList = viewState.gridList,
-                    currentGridCount = viewState.gridItemCount,
-                    styleList = viewState.styleList,
-                    currentStyleCount = viewState.styleItemCount,
                     footerClicked = { footer, data ->
                         viewModel.onAction(
                             when (footer) {
-                                FooterModel.FooterType.REFRESH -> UserAction.Refresh(data)
-                                FooterModel.FooterType.MORE -> UserAction.More(data)
+                                FooterType.REFRESH -> UserAction.Refresh(data)
+                                FooterType.MORE -> UserAction.More(data)
                             }
                         )
                     })
@@ -85,15 +82,10 @@ fun MainScreen(
 
 @Composable
 private fun ItemScreen(
-    data: List<DataDto>,
-    scrollList: List<ContentsDto.GoodsDto>,
-    gridList: List<ContentsDto.GoodsDto>,
-    styleList: List<ContentsDto.StyleDto>,
-    currentGridCount: Int,
-    currentStyleCount: Int,
+    data: List<Data>,
     footerClicked: (
-        type: FooterModel.FooterType,
-        selectedContentDto: ContentsDto,
+        type: FooterType,
+        selectedContentDto: Content,
     ) -> Unit,
 ) {
     val density = LocalDensity.current
@@ -116,49 +108,52 @@ private fun ItemScreen(
                     HeaderComponent(header = header)
                 }
             }
-            when (it.content.type) {
-                "BANNER" -> item(span = { GridItemSpan(3) }) {
+            when (it.contents.type) {
+                ContentType.BANNER -> item(span = { GridItemSpan(3) }) {
                     BannerListComponent(
-                        list = it.content.banners ?: emptyList()
+                        list = it.contents.filteredDetail.map { detail ->
+                            detail as ContentDetail.Banner
+                        }
                     )
                 }
-                "SCROLL" -> item(span = { GridItemSpan(3) }) {
+                ContentType.SCROLL -> item(span = { GridItemSpan(3) }) {
                     ScrollListComponent(
-                        list = scrollList
+                        list = it.contents.filteredDetail.map { detail ->
+                            detail as ContentDetail.Goods
+                        }
                     )
                 }
-                "GRID" -> gridGoods(
-                    if (gridList.size <= currentGridCount) {
-                        gridList
-                    } else {
-                        gridList.subList(0, currentGridCount)
-                    }
-                )
-                "STYLE" -> {
+                ContentType.GRID ->
+                    gridGoods(
+                        it.contents.filteredDetail.map { detail ->
+                            detail as ContentDetail.Goods
+                        }
+                    )
+                ContentType.STYLE ->
                     styleItems(
-                        items = if (styleList.size <= currentStyleCount) {
-                            styleList
-                        } else {
-                            styleList.subList(0, currentStyleCount)
+                        items = it.contents.filteredDetail.map { contentDetail ->
+                            contentDetail as ContentDetail.Style
                         },
                         itemHeight = styleMatrixHeight,
                         onHeightChange = { dp ->
                             styleMatrixHeight = with(density) { dp.toDp() }
                         }
                     )
-                }
+
             }
             it.footer?.let { footer ->
-                item(span = { GridItemSpan(3) }) {
-                    FooterComponent(footer = footer) {
-                        footerClicked(
-                            FooterModel.FooterType.valueOf(footer.type),
-                            it.content
-                        )
+                if (it.isFooterShown) {
+                    item(span = { GridItemSpan(3) }) {
+                        FooterComponent(footer = footer) {
+                            footerClicked(
+                                footer.type,
+                                it.contents
+                            )
+                        }
                     }
                 }
             }
-            item { 
+            item {
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }

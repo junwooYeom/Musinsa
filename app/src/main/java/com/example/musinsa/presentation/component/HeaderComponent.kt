@@ -12,13 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.musinsa.data.HeaderDto
+import com.example.musinsa.domain.Header
 import com.example.musinsa.ui.theme.Typography
 
 @Composable
 fun HeaderComponent(
     modifier: Modifier = Modifier,
-    header: HeaderDto
+    header: Header
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),

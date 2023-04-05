@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.musinsa.data.ContentsDto
+import com.example.musinsa.domain.ContentDetail
 
 internal fun LazyGridScope.styleItems(
-    items: List<ContentsDto.StyleDto>,
+    items: List<ContentDetail.Style>,
     itemHeight: Dp,
     onHeightChange: (Int) -> Unit,
 ) {

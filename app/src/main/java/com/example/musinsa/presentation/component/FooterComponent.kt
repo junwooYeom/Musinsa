@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.musinsa.data.FooterDto
+import com.example.musinsa.domain.Footer
 import com.example.musinsa.ui.theme.Typography
 
 @Composable
 fun FooterComponent(
-    footer: FooterDto,
+    footer: Footer,
     onItemClick: () -> Unit
 ) {
     Surface(
@@ -47,7 +47,7 @@ fun FooterComponent(
                 text = footer.title,
                 style = Typography.body1
             )
-            footer.iconUrl?.let {
+            footer.url?.let {
                 Spacer(modifier = Modifier.width(4.dp))
                 AsyncImage(
                     modifier = Modifier.size(16.dp),

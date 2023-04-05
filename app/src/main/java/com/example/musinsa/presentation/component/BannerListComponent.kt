@@ -16,14 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.musinsa.data.ContentsDto
+import com.example.musinsa.domain.ContentDetail
 import com.example.musinsa.ui.theme.Typography
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun BannerListComponent(
-    list: List<ContentsDto.BannerDto>,
+    list: List<ContentDetail.Banner>,
 ) {
     val pagerState = rememberPagerState()
     LaunchedEffect(Unit) {
