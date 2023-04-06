@@ -1,7 +1,5 @@
 # Musinsa
 
-# movieApplication
-
 ## 사용 기술 스택
 
 ### 프로젝트 구성
