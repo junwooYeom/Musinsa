@@ -21,6 +21,7 @@ internal fun LazyGridScope.styleItems(
 ) {
     item(span = { GridItemSpan(3) }) {
         Row(
+
             horizontalArrangement = Arrangement.spacedBy(
                 8.dp,
                 alignment = Alignment.CenterHorizontally

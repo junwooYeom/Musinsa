@@ -82,8 +82,6 @@ dependencies {
 
     implementation "androidx.compose.foundation:foundation:1.4.0"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha09"
-    implementation "com.google.accompanist:accompanist-pager:0.31.0-alpha"
-    implementation "com.google.accompanist:accompanist-pager-indicators:0.31.0-alpha"
 }
 
 kapt {

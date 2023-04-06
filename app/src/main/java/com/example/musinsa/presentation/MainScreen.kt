@@ -93,19 +93,17 @@ private fun ItemScreen(
         mutableStateOf(0.dp)
     }
     LazyVerticalGrid(
-        modifier = Modifier
-            .padding(horizontal = 16.dp),
+        modifier = Modifier.padding(16.dp),
         columns = GridCells.Fixed(3),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        item(span = { GridItemSpan(3) }) {
-            Spacer(modifier = Modifier.height(16.dp))
-        }
         data.forEach {
             it.header?.let { header ->
                 item(span = { GridItemSpan(3) }) {
-                    HeaderComponent(header = header)
+                    HeaderComponent(
+                        header = header
+                    )
                 }
             }
             when (it.contents.type) {
@@ -125,7 +123,7 @@ private fun ItemScreen(
                 }
                 ContentType.GRID ->
                     gridGoods(
-                        it.contents.filteredDetail.map { detail ->
+                        items = it.contents.filteredDetail.map { detail ->
                             detail as ContentDetail.Goods
                         }
                     )
@@ -139,12 +137,16 @@ private fun ItemScreen(
                             styleMatrixHeight = with(density) { dp.toDp() }
                         }
                     )
-
+            }
+            item(span = { GridItemSpan(3) }) {
+                Spacer(modifier = Modifier.height(12.dp))
             }
             it.footer?.let { footer ->
                 if (it.isFooterShown) {
                     item(span = { GridItemSpan(3) }) {
-                        FooterComponent(footer = footer) {
+                        FooterComponent(
+                            footer = footer
+                        ) {
                             footerClicked(
                                 footer.type,
                                 it.contents
