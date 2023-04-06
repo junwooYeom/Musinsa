@@ -9,9 +9,6 @@
 ### 의존성 주입
 - Hilt
 
-### 로컬 데이터베이스
-- Room
-
 ### 네트워크
 - Retrofit2 with Moshi
 
@@ -20,11 +17,10 @@
 - Kotlin Flow
 
 ### 이미지 리소스
-- Glide
+- Coil
 ### 뷰 관련 라이브러리
 - Jetpack Compose
-- Android Navigation
-- Paging3
+- HorizontalPager
 
 ## 프로젝트 설치 및 빌드 방법
 > Android Studio Electric Eel 버전으로 개발 진행하였습니다.
