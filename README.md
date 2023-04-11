@@ -3,7 +3,7 @@
 ## 사용 기술 스택
 
 ### 프로젝트 구성
-- MVVM 프레임워크
+- MVI 프레임워크 using Mavericks
 - Android Clean Architecture
 
 ### 의존성 주입
